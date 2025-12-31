@@ -1,0 +1,83 @@
+<style>
+  /* Card glow animation */
+  @keyframes softGlow {
+    0% { box-shadow: 0 0 10px rgba(0,123,255,0.2); }
+    50% { box-shadow: 0 0 25px rgba(0,123,255,0.45); }
+    100% { box-shadow: 0 0 10px rgba(0,123,255,0.2); }
+  }
+
+  .counter-result {
+    background: linear-gradient(135deg, #0d6efd, #6f42c1);
+    color: #fff;
+    border-radius: 14px;
+    padding: 18px;
+    animation: softGlow 3s infinite ease-in-out;
+  }
+
+  .counter-box {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  }
+
+  textarea {
+    border-radius: 12px;
+    resize: none;
+    transition: all 0.3s ease;
+  }
+
+  textarea:focus {
+    box-shadow: 0 0 0 3px rgba(13,110,253,0.25);
+    transform: scale(1.01);
+  }
+
+  .run-btn {
+    background: linear-gradient(135deg, #198754, #20c997);
+    border: none;
+    border-radius: 50px;
+    font-size: 18px;
+    padding: 10px 40px;
+    transition: all 0.3s ease;
+  }
+
+  .run-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(25,135,84,0.4);
+  }
+</style>
+{% if i %}
+<div class="mb-3 counter-result text-center">
+  <h4 class="mb-0">
+    🔢 {{ word }} Word{{ word|pluralize }} Found in Your Text
+  </h4>
+</div>
+{% endif %}
+
+<div class="col-12 pb-4 text-center">
+  <div class="counter-box">
+    <form action="counter" method="POST">
+      {% csrf_token %}
+
+      <div class="form-group mb-3">
+        <label for="text1" class="fw-bold mb-2">
+          📄 Paste your text below
+        </label>
+        <textarea
+          name="texttocount"
+          id="text1"
+          rows="8"
+          class="form-control"
+          placeholder="Start typing or paste your text here..."
+        >{{ text }}</textarea>
+      </div>
+
+      <div class="text-center mt-4">
+        <button type="submit" class="btn run-btn">
+          🚀 Run Counter
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
