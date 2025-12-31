@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>📘 Wikipedia Search</title>
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e3f2fd, #f9fbff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .wiki-box {
+            width: 100%;
+            max-width: 650px;
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 18px;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.15);
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #0d47a1;
+        }
+
+        .form-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(13,71,161,0.2);
+        }
+
+        button {
+            padding: 12px 22px;
+            border-radius: 10px;
+            border: none;
+            background: #0d47a1;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #08306b;
+            transform: translateY(-2px);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .spinner {
+            width: 45px;
+            height: 45px;
+            border: 5px solid #cfd8dc;
+            border-top: 5px solid #0d47a1;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: auto;
+        }
+
+        .result-box {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 12px;
+            background: #f1f8ff;
+            border-left: 5px solid #0d47a1;
+            animation: slideUp 0.6s ease-in-out;
+            line-height: 1.6;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="wiki-box">
+    <h1>📘 Wikipedia Search</h1>
+
+    <form method="post" id="searchForm">
+        {% csrf_token %}
+        <div class="form-group">
+            <input
+                type="text"
+                name="search"
+                placeholder="Search Wikipedia..."
+                required
+            >
+            <button type="submit">Search</button>
+        </div>
+    </form>
+
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>🔍 Searching Wikipedia…</p>
+    </div>
+
+    {% if result %}
+    <div class="result-box">
+        {{ result }}
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    const form = document.getElementById("searchForm");
+    const loading = document.getElementById("loading");
+
+    form.addEventListener("submit", () => {
+        loading.style.display = "block";
+    });
+</script>
+
+</body>
+</html>
