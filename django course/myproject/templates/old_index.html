@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Starter Page</title>
+  <style>
+    :root {
+      --bg: #0f172a;       /* slate-900 */
+      --card: #111827;     /* gray-900 */
+      --text: #e5e7eb;     /* gray-200 */
+      --muted: #9ca3af;    /* gray-400 */
+      --accent: #22c55e;   /* green-500 */
+      --accent-2: #38bdf8; /* sky-400 */
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji';
+      background: radial-gradient(1200px 500px at 80% -10%, rgba(56,189,248,0.12), transparent 60%),
+                  radial-gradient(800px 300px at 10% 0%, rgba(34,197,94,0.12), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+    }
+    a { color: var(--accent-2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 1.25rem; }
+    header {
+      position: sticky; top: 0; backdrop-filter: blur(8px);
+      background: rgba(15,23,42,0.6); border-bottom: 1px solid rgba(229,231,235,0.08);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 0;
+    }
+    .brand { font-weight: 700; letter-spacing: 0.2px; display: flex; align-items: center; gap: 0.5rem; }
+    .brand-dot { width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow: 0 0 12px rgba(56,189,248,0.5); }
+    .links { display: flex; gap: 1rem; }
+    .btn {
+      display: inline-block; padding: 0.55rem 0.9rem; border-radius: 10px; font-weight: 600;
+      background: linear-gradient(135deg, rgba(34,197,94,0.12), rgba(56,189,248,0.12));
+      border: 1px solid rgba(229,231,235,0.12);
+    }
+    .hero { padding: 4rem 0 2rem; text-align: center; }
+    .hero h1 { font-size: clamp(1.8rem, 4vw, 3rem); margin: 0.25rem 0 0.75rem; }
+    .hero p { color: var(--muted); max-width: 700px; margin: 0 auto 1.5rem; line-height: 1.6; }
+    .cta { display: inline-flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; margin-top: 0.75rem; }
+    .cta .primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #0b1020; border: none; box-shadow: 0 8px 25px rgba(56,189,248,0.35);
+    }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; padding: 2rem 0 3rem; }
+    @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+    .card {
+      background: linear-gradient(180deg, rgba(17,24,39,0.95), rgba(17,24,39,0.8));
+      border: 1px solid rgba(229,231,235,0.08); border-radius: 14px; padding: 1rem;
+    }
+    .card h3 { margin: 0.25rem 0 0.5rem; font-size: 1.05rem; }
+    .card p { margin: 0; color: var(--muted); line-height: 1.55; }
+    .badge { font-size: 0.75rem; color: var(--accent-2); letter-spacing: 0.3px; }
+    footer {
+      border-top: 1px solid rgba(229,231,235,0.08);
+      padding: 1rem 0; color: var(--muted); text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <span>MySite</span>
+      </div>
+      <nav class="links">
+        <a href="#features">Features</a>
+        <a href="#about">About</a>
+        <a class="btn" href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+    <main class="container">
+      <section class="hero">
+        <span class="badge">Modern, minimal, fast</span>
+          {% if user.is_authenticated %}
+          <h1> Wellcome, {{user.get_username }}</h1>
+          {% else %}
+          <h1>Build something people want.</h1>
+          {% endif %}
+        <p>Kickstart your project with a clean, accessible template. Responsive out‑of‑the‑box, easy to extend, and production‑friendly.</p>
+        <div class="cta">
+          <a class="btn primary" href="login">Get started</a>
+          <a class="btn" href="#docs">View docs</a>
+        </div>
+      </section>
+
+      <section id="features" class="grid">
+        <article class="card">
+          <h3>Performance</h3>
+          <p>Lightweight CSS, no frameworks. Quick to load, simple to maintain.</p>
+        </article>
+        <article class="card">
+          <h3>Accessibility</h3>
+          <p>Semantic HTML with good contrast and keyboard‑friendly navigation.</p>
+        </article>
+        <article class="card">
+          <h3>Responsive</h3>
+          <p>Grid adjusts for desktop, tablet, and mobile with graceful fallbacks.</p>
+        </article>
+        <article class="card">
+          <h3>Extensible</h3>
+          <p>Drop in your own components or CSS framework without conflicts.</p>
+        </article>
+        <article class="card">
+          <h3>Clean design</h3>
+          <p>Focused typography and spacing to keep content clear and scannable.</p>
+        </article>
+        <article class="card">
+          <h3>Ready to ship</h3>
+          <p>Production‑friendly structure you can paste into any stack.</p>
+        </article>
+      </section>
+
+      <section id="about" class="card">
+        <h3>About</h3>
+        <p>This starter is a solid base for landing pages, docs, or dashboards. Customize colors in the <code>:root</code> section.</p>
+      </section>
+
+      <section id="contact" class="card" style="margin-top:1rem;">
+        <h3>Contact</h3>
+        <p>Drop a message at <a href="mailto:hello@example.com">hello@example.com</a>.</p>
+      </section>
+    </main>
+
+  <footer>
+    <div class="container">© 2025 MySite — All rights reserved.</div>
+  </footer>
+</body>
+</html>
+
