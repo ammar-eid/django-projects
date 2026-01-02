@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Newsletter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .newsletter-card {
+            background: white;
+            border-radius: 18px;
+            padding: 35px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            animation: popIn 0.6s ease;
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .newsletter-title {
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .newsletter-subtitle {
+            text-align: center;
+            color: #6c757d;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        .btn-subscribe {
+            background: linear-gradient(45deg, #28a745, #5dd87b);
+            border: none;
+            color: white;
+        }
+
+        .btn-unsubscribe {
+            background: linear-gradient(45deg, #dc3545, #ff6b6b);
+            border: none;
+            color: white;
+        }
+
+        .btn-subscribe:hover,
+        .btn-unsubscribe:hover {
+            opacity: 0.9;
+        }
+
+        .messages {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 15px;
+        }
+
+        .messages li {
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .success {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #842029;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="newsletter-card">
+
+    <h2 class="newsletter-title">📬 Join Our Newsletter</h2>
+    <p class="newsletter-subtitle">
+        Get updates, tips, and exclusive content straight to your inbox.
+    </p>
+
+    <!-- Django messages -->
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">
+                    {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <!-- Newsletter Form -->
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <input
+                type="email"
+                name="email"
+                class="form-control form-control-lg"
+                placeholder="Enter your email address"
+                required
+            >
+        </div>
+
+        <div class="d-grid gap-2">
+            <button type="submit" name="subscribe" class="btn btn-subscribe btn-lg">
+                ✅ Subscribe
+            </button>
+
+            <button type="submit" name="unsubscribe" class="btn btn-unsubscribe btn-lg">
+                ❌ Unsubscribe
+            </button>
+        </div>
+    </form>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
