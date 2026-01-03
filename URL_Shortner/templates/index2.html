@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #43cea2, #185a9d);
+            font-family: 'Poppins', sans-serif;
+            padding: 40px 15px;
+        }
+
+        .app-card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 35px;
+            max-width: 700px;
+            margin: auto;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.2);
+            animation: fadeUp 0.6s ease;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .app-title {
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .app-subtitle {
+            text-align: center;
+            color: #6c757d;
+            margin-bottom: 30px;
+        }
+
+        .short-url {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            transition: 0.3s ease;
+        }
+
+        .short-url:hover {
+            background: #eef3ff;
+        }
+
+        .short-url a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #0d6efd;
+        }
+
+        .original-url {
+            max-width: 60%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #495057;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-card">
+
+    <h1 class="app-title">🔗 URL Shortener</h1>
+    <p class="app-subtitle">
+        Paste your long URL and get a clean, short link instantly.
+    </p>
+
+    <!-- Shorten URL Form -->
+    <form method="POST" class="mb-4">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-lg">
+                ✂️ Shorten URL
+            </button>
+        </div>
+    </form>
+
+    {% if data %}
+        <hr>
+
+        <h4 class="mb-3">✨ Your Shortened Links</h4>
+
+        {% for entry in data %}
+            <div class="short-url">
+                <span class="original-url" title="{{ entry.url }}">
+                    {{ entry.url }}
+                </span>
+                <a href="/u/{{ entry.slug }}" target="_blank">
+                    /u/{{ entry.slug }}
+                </a>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
