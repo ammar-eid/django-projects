@@ -8,5 +8,3 @@ class UrlData(models.Model):
 
     def __str__(self):
         return f'Short URL for:  {self.url} is {self.slug}'
-
-
